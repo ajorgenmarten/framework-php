@@ -33,6 +33,7 @@ class Route implements IRoute {
     }
     public function run(Request $request, Response $response) {
         echo "run route $this->name \n\n";
+        echo "invoke middlewares...";
         print_r($request);
     }
 }
