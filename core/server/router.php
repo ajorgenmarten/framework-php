@@ -14,11 +14,11 @@ class Router implements IRouter {
         "DELETE" => []
     ];
 
-    private function get_controller_data(array|string $controller): array
+    private function get_controller_data(array|string|callable $controller): array
     {
         $ctrl = null;
         $mthd = null;
-        if(is_string($controller)) $ctrl = $controller;
+        if(is_string($controller) || is_callable($controller)) $ctrl = $controller;
         if(is_array($controller)) {
             if(count($controller) == 2) {$ctrl = $controller[0]; $mthd = $controller[1];}
             if(count($controller) == 1) $ctrl = $controller[0];
@@ -26,7 +26,7 @@ class Router implements IRouter {
         }
         return compact("ctrl", "mthd");
     }
-    private function save_route(string $method, string $path, string|array $controller): Route
+    private function save_route(string $method, string $path, string|array|callable $controller): Route
     {
         extract($this->get_controller_data($controller));
         $route = new Route($path, $ctrl, $mthd ?? "index");
@@ -34,10 +34,10 @@ class Router implements IRouter {
         return $route;
     }
 
-    function get(string $path, array|string $controller):Route { return $this->save_route("GET", $path, $controller); }
-    function post(string $path, array|string $controller):Route { return $this->save_route("POST", $path, $controller); }
-    function put(string $path, array|string $controller):Route { return $this->save_route("PUT", $path, $controller); }
-    function delete(string $path, array|string $controller):Route { return $this->save_route("DELETE", $path, $controller); }
+    function get(string $path, array|string|callable $controller):Route { return $this->save_route("GET", $path, $controller); }
+    function post(string $path, array|string|callable $controller):Route { return $this->save_route("POST", $path, $controller); }
+    function put(string $path, array|string|callable $controller):Route { return $this->save_route("PUT", $path, $controller); }
+    function delete(string $path, array|string|callable $controller):Route { return $this->save_route("DELETE", $path, $controller); }
 
     private function parse_path_to_regexp(string $path) {
         $path_array = preg_split("/\//", $path, -1, PREG_SPLIT_NO_EMPTY);
@@ -68,10 +68,6 @@ class Router implements IRouter {
             $response = new Response();
             $route->run($request, $response);
             die;
-            // var_dump($this->get_route_params($request_path,$value->path));
-            // print_r($this->get_route_params($request_path,$value->path));
-            // print_r($matches);
-            // print_r($matc_route);
         }
     }
 }
