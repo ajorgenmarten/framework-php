@@ -131,6 +131,7 @@ class Request {
         }
         return $params;
     }
+    //MODIFY SET FUNCTION TO TIGGER METHOD GET PARAMS OF URL
     function __set($name, $value)
     {
         $this->$name = $value;
