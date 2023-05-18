@@ -25,6 +25,7 @@ class Http {
     static function get_request_method():string {
         return strtoupper($_SERVER["REQUEST_METHOD"]);
     }
+    //GET CONTENT TYPE OF THE REQUEST
     static function get_contetn_type():string {
         $content_type = $_SERVER["CONTENT_TYPE"] ?? NULL;
         $accepts = [
@@ -41,9 +42,11 @@ class Http {
         }
         return "none";
     }
+    //GET STRING DATA FOR THE REQUEST
     static function get_request_data():string {
         return file_get_contents("php://input");
     }
+    //CLEAN THE URL
     static function sanitize_url(string $url):string {
         $array = preg_split("/\//", $url, -1, PREG_SPLIT_NO_EMPTY);
         $implode = implode("/", $array);

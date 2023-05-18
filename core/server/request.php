@@ -19,7 +19,7 @@ class Request {
         $this->parse_body();
         $this->request_path = Http::sanitize_url( Http::get_path() );
     }
-
+    //PARSE THE PLAIN DATA TO OBJECT PROPERTY
     private function parse_body() {
         $content_type = Http::get_contetn_type();
         if($content_type == "none") {
@@ -47,6 +47,7 @@ class Request {
             $this->body = (object) $this->parse_form_data_to_body();
         }
     }
+    //GET DATA OF THE FILE SEND BY POST
     private function parse_file_by_post():void {
         $files = [];
         foreach($_FILES as $key => $value) {
@@ -67,6 +68,7 @@ class Request {
         }
         $this->files = $files;
     }
+    //PARSE DATA TO ARRAY RECIVED WITH CONTENT TYPE FROM-DATA
     private function parse_form_data_to_body():array {
         $plain_data = Http::get_request_data();
         preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
@@ -106,6 +108,7 @@ class Request {
         }
         return $body;
     }
+    //PARSE DATA TO ARRAY RECIVED WITH CONTENT TYPE URLENCODED
     private function parse_urlencode_to_body():array {
         $plain_data = Http::get_request_data();
         $separated_by_props = preg_split("/&/", $plain_data, -1, PREG_SPLIT_NO_EMPTY);
@@ -116,6 +119,7 @@ class Request {
         }
         return $separated_by_props;
     }
+    //GET PARAMS OF THE DINAMIC ROUTE PATH
     private function get_params (string $route_path, string $request_path):array {
         $params = [];
         if(preg_match_all("/:(\w+)\??/", $route_path, $matches)) {
@@ -131,7 +135,6 @@ class Request {
     {
         $this->$name = $value;
         if($name === "route_path") $this->params = (object) $this->get_params($this->route_path, $this->request_path);
-
     }
 
 }

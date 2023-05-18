@@ -31,6 +31,7 @@ class Route implements IRoute {
         if(!$match) return;
         foreach ($matches[1] as $value) array_push($this->route_params, $value);
     }
+    //WHEN RUTE IS FOUND, THIS METHOD INIT LOGIC IN THE CONTROLLER SET
     public function run(Request $request, Response $response) {
         if(is_callable($this->controller)) return call_user_func($this->controller, $request, $response);
         else return call_user_func_array([new $this->controller, $this->method], [$request, $response]);

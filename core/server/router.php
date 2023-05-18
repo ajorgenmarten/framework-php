@@ -13,7 +13,7 @@ class Router implements IRouter {
         "PUT" => [],
         "DELETE" => []
     ];
-
+    //DESTRUCTURING THE CONTROLLER PASSED
     private function get_controller_data(array|string|callable $controller): array
     {
         $ctrl = null;
@@ -26,6 +26,7 @@ class Router implements IRouter {
         }
         return compact("ctrl", "mthd");
     }
+    //SAVE THE ROUTE
     private function save_route(string $method, string $path, string|array|callable $controller): Route
     {
         extract($this->get_controller_data($controller));
@@ -39,6 +40,7 @@ class Router implements IRouter {
     function put(string $path, array|string|callable $controller):Route { return $this->save_route("PUT", $path, $controller); }
     function delete(string $path, array|string|callable $controller):Route { return $this->save_route("DELETE", $path, $controller); }
 
+    //PARSE THE ROUTE SET TO REGULAR EXPRESSION
     private function parse_path_to_regexp(string $path) {
         $path_array = preg_split("/\//", $path, -1, PREG_SPLIT_NO_EMPTY);
         $path_array = array_map(function($section) {
@@ -54,7 +56,7 @@ class Router implements IRouter {
         return "/^\/$path"."[\/]{0,1}$/";
     }
     
-
+    //INITIALIZE ALL ROUTES SET IN THE CLASS
     function boot():void {
         $request_method = Http::get_request_method();
         $request_path = Http::sanitize_url ( Http::get_path() );

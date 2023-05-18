@@ -16,7 +16,7 @@ class File implements IFile {
     {
         $this->tmp_name_is_data = $tmp_name_is_data;
     }
-
+    //PLACE THE RECIVED FILE IN A PATH
     function put(string $path): void {
         if($this->error !== UPLOAD_ERR_OK) return;
         if($this->tmp_name_is_data) {
