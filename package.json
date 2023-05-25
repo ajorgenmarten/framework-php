@@ -1,0 +1,20 @@
+{
+  "name": "framework-php",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./public/index.php",
+  "scripts": {
+    "dev": "cd public && php -S localhost:7000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajorgenmarten/framework-php.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajorgenmarten/framework-php/issues"
+  },
+  "homepage": "https://github.com/ajorgenmarten/framework-php#readme"
+}
