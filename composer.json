@@ -1,0 +1,12 @@
+{
+    "name": "ajorgenmarten/framework-php",
+    "description": "A framework of php for simple build rest-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alejandro Jorgen",
+            "email": "ajorgenmarten35@gmail.com"
+        }
+    ],
+    "require": {}
+}
