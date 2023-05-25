@@ -8,9 +8,6 @@ use core\server\Response;
 class Check extends MiddlewareBase {
     function handle(Request &$request, Response &$response): bool
     {
-        echo "pase por middleware check \n";
-        $request->body->name = "Pepe";
-        $request->body->lastname = "Antonio";
         return true;
     }
 }
